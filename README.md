@@ -24,7 +24,7 @@ yarn test
 
 A collection of the different Safe contract deployments and their addresses can be found in the [Safe deployments](https://github.com/gnosis/safe-deployments) repository.
 
-To add support for a new network follow the steps of the ``Deploy`` section and create a PR in the [Safe deployments](https://github.com/gnosis/safe-deployments) repository. 
+To add support for a new network follow the steps of the ``Deploy`` section and create a PR in the [Safe deployments](https://github.com/gnosis/safe-deployments) repository.
 
 ### Deploy
 
@@ -53,7 +53,7 @@ yarn hardhat --network <network> local-verify
 
 It is possible to use the `NODE_URL` env var to connect to any EVM based network via an RPC endpoint. This connection then can be used with the `custom` network.
 
-E.g. to deploy the Safe contract suite on that network you would run `yarn deploy-all custom`. 
+E.g. to deploy the Safe contract suite on that network you would run `yarn deploy-all custom`.
 
 The resulting addresses should be on all networks the same.
 
@@ -61,7 +61,7 @@ Note: Address will vary if contract code is changed or a different Solidity vers
 
 #### Replay protection (EIP-155)
 
-Some networks require replay protection. This is not possible with the default deployment process as it relies on a presigned transaction without replay protection (see https://github.com/Arachnid/deterministic-deployment-proxy). 
+Some networks require replay protection. This is not possible with the default deployment process as it relies on a presigned transaction without replay protection (see https://github.com/Arachnid/deterministic-deployment-proxy).
 
 It is possible to enable deployment via a different determinisitic deployment proxy (https://github.com/gnosis/safe-singleton-factory). To enable this the `CUSTOM_DETERMINISTIC_DEPLOYMENT` env var has to be set to `true` (see `.env.sample`). To make sure that the latest version of this package is install, make sure to run `yarn add @gnosis.pm/safe-singleton-factory` before deployment.
 
