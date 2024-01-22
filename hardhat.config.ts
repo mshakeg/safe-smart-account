@@ -1,11 +1,11 @@
 import type { HardhatUserConfig, HttpNetworkUserConfig } from "hardhat/types";
-import "@nomicfoundation/hardhat-verify";
 import "@nomiclabs/hardhat-waffle";
 import "solidity-coverage";
 import "hardhat-deploy";
 import dotenv from "dotenv";
 import yargs from "yargs";
 import { getSingletonFactoryInfo, SingletonFactoryInfo } from "@gnosis.pm/safe-singleton-factory";
+import "@nomicfoundation/hardhat-verify"; // for some reason importing this at the start of the fail results in "npx hardhat verify ..." not working as expected
 
 const argv = yargs
   .option("network", {
@@ -220,6 +220,9 @@ const userConfig: HardhatUserConfig = {
       },
     ],
   },
+  sourcify: {
+    enabled: true
+  }
 };
 if (NODE_URL) {
   userConfig.networks!!.custom = {
