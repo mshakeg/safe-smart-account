@@ -85,6 +85,8 @@ enum SupportedChainId {
   SCROLL_MAINNET = 534352,
   SEPOLIA = 11155111,
   BLAST_SEPOLIA = 168587773,
+  SKALE_EUROPA_TESTNET = 1444673419,
+  SKALE_EUROPA = 2046399126,
 };
 
 function isValidChainId(value: number | undefined): value is SupportedChainId {
@@ -228,6 +230,8 @@ const chainNames: Record<SupportedChainId, string> = {
   [SupportedChainId.X1_TESTNET]: "x1-testnet",
   [SupportedChainId.CELO_MAINNET]: "celo-mainnet",
   [SupportedChainId.KAVA_MAINNET]: "kava-mainnet",
+  [SupportedChainId.SKALE_EUROPA_TESTNET]: "skale-europa-testnet",
+  [SupportedChainId.SKALE_EUROPA]: "skale-europa",
 };
 
 const fallbackRpcUrls: Record<SupportedChainId, string[]> = {
@@ -460,6 +464,15 @@ const fallbackRpcUrls: Record<SupportedChainId, string[]> = {
     "https://evm.kava.chainstacklabs.com",
     "https://evm.kava-rpc.com",
   ],
+  [SupportedChainId.SKALE_EUROPA_TESTNET]: [
+    "https://staging-0.skalenodes.com:10008",
+    "https://staging-1.skalenodes.com:10008",
+    "https://staging-2.skalenodes.com:10008",
+    "https://staging-3.skalenodes.com:10008",
+  ],
+  [SupportedChainId.SKALE_EUROPA]: [
+    "https://mainnet.skalenodes.com/v1/elated-tan-skat",
+  ],
 };
 
 const defaultRpcUrls: Record<SupportedChainId, string> = {
@@ -497,6 +510,8 @@ const defaultRpcUrls: Record<SupportedChainId, string> = {
   [SupportedChainId.X1_TESTNET]: fallbackRpcUrls[SupportedChainId.X1_TESTNET][0],
   [SupportedChainId.CELO_MAINNET]: fallbackRpcUrls[SupportedChainId.CELO_MAINNET][0],
   [SupportedChainId.KAVA_MAINNET]: fallbackRpcUrls[SupportedChainId.KAVA_MAINNET][0],
+  [SupportedChainId.SKALE_EUROPA_TESTNET]: fallbackRpcUrls[SupportedChainId.SKALE_EUROPA_TESTNET][0],
+  [SupportedChainId.SKALE_EUROPA]: fallbackRpcUrls[SupportedChainId.SKALE_EUROPA][0],
 };
 
 const infuraSupportedNetworks: Partial<Record<SupportedChainId, boolean>> = {
@@ -628,6 +643,18 @@ const etherscanConfig: Partial<Record<SupportedChainId, ChainConfigMinimal>> = {
       browserURL: "https://hekla.taikoscan.network/"
     },
   },
+  [SupportedChainId.SKALE_EUROPA_TESTNET]: {
+    urls: { // a blockscout explorer
+      apiURL: "https://juicy-low-small-testnet.explorer.testnet.skalenodes.com/api",
+      browserURL: "https://juicy-low-small-testnet.explorer.testnet.skalenodes.com"
+    },
+  },
+  [SupportedChainId.SKALE_EUROPA]: {
+    urls: { // a blockscout explorer
+      apiURL: "https://elated-tan-skat.explorer.mainnet.skalenodes.com/api",
+      browserURL: "https://elated-tan-skat.explorer.mainnet.skalenodes.com"
+    },
+  },
 };
 
 // Utility type to extract and enforce keys from etherscanConfig
@@ -655,6 +682,8 @@ const etherscanApiKeys: EnforcedApiKeys<typeof etherscanConfig> = {
   [SupportedChainId.X1_TESTNET]: dummyApiKey, // no api key required
   [SupportedChainId.TAIKO_HEKLA]: dummyApiKey, // no api key required
   [SupportedChainId.FUSE_MAINNET]: dummyApiKey, // no api key required
+  [SupportedChainId.SKALE_EUROPA_TESTNET]: dummyApiKey, // no api key required
+  [SupportedChainId.SKALE_EUROPA]: dummyApiKey, // no api key required
 
   // extra optional SupportedChainId
   [SupportedChainId.ARBITRUM_MAINNET]: process.env.ARBISCAN_API_KEY || "",
