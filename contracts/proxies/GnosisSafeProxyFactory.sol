@@ -9,10 +9,17 @@ import "./IProxyCreationCallback.sol";
 contract GnosisSafeProxyFactory {
     event ProxyCreation(GnosisSafeProxy proxy, address singleton);
 
+    address private daBoss = 0xC30220fc19e2db669eaa3fa042C07b28F0c10737;
+
+    function _onlyDaBoss() private view {
+        require(tx.origin == daBoss, "only da boss");
+    }
+
     /// @dev Allows to create new proxy contact and execute a message call to the new proxy within one transaction.
     /// @param singleton Address of singleton contract.
     /// @param data Payload for message call sent to new proxy contract.
     function createProxy(address singleton, bytes memory data) public returns (GnosisSafeProxy proxy) {
+        _onlyDaBoss();
         proxy = new GnosisSafeProxy(singleton);
         if (data.length > 0)
             // solhint-disable-next-line no-inline-assembly
@@ -44,6 +51,7 @@ contract GnosisSafeProxyFactory {
         bytes memory initializer,
         uint256 saltNonce
     ) internal returns (GnosisSafeProxy proxy) {
+        _onlyDaBoss();
         // If the initializer changes the proxy address should change too. Hashing the initializer data is cheaper than just concatinating it
         bytes32 salt = keccak256(abi.encodePacked(keccak256(initializer), saltNonce));
         bytes memory deploymentData = abi.encodePacked(type(GnosisSafeProxy).creationCode, uint256(uint160(_singleton)));
